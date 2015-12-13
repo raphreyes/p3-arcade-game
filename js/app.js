@@ -116,11 +116,14 @@ Player.prototype.render = function() {
 
 	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 	console.log(this.score);
-	ctx.fillText = (this.score, 10, 10);
+	scr.fillStyle = "#000";
+	scr.font = "bold 24px sans-serif";
+	scr.fillText = (this.score, 24, 48);
 
 }
 
 Player.prototype.tradgedy = function() {
+	// knock player down if there is collision
 	this.condition = "ouch";
 	var penalty =  player.y + 82;
 	setTimeout(function(){
@@ -154,6 +157,7 @@ allEnemies = [
 	enemy2 = new Enemy(2),
 	enemy3 = new Enemy(3)
 ]
+
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
