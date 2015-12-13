@@ -53,9 +53,19 @@ var Player = function() {
 }
 
 Player.prototype.update = function() {
-	// Check for goal
+	// Check for goal and reset player
 	if (this.y == -10) {
 		this.reset();
+	}
+
+	// adjust score
+	if (this.y == 400 && this.condition == "win") {
+		this.condition = "normal";
+		doScore("goal");
+	}
+	if (this.condition == "ouch") {
+		this.condition = "normal";
+		doScore("ouch");
 	}
 
 	// check lane1 enemy
@@ -76,7 +86,6 @@ Player.prototype.update = function() {
 			this.tradgedy();
 		}
 	}
-	// console.log(this.score);
 }
 
 Player.prototype.handleInput = function(input) {
@@ -97,7 +106,6 @@ Player.prototype.handleInput = function(input) {
 	if (input == "right" && this.x < 402) {
 		this.x = this.x + 101;
 	}
-	// console.log("player:" + this.x, this.y, this.condition);
 }
 
 Player.prototype.render = function() {
@@ -115,24 +123,15 @@ Player.prototype.render = function() {
 	}
 
 	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-	console.log(this.score);
-	scr.fillStyle = "#000";
-	scr.font = "bold 24px sans-serif";
-	scr.fillText = (this.score, 24, 48);
-
 }
 
 Player.prototype.tradgedy = function() {
 	// knock player down if there is collision
-	this.condition = "ouch";
 	var penalty =  player.y + 82;
+	player.y =  penalty;
+	this.condition = "ouch";
 	setTimeout(function(){
-		player.y = player.y + 6;
-		console.log(player.y);
-		player.condition = "normal";
-		player.y =  penalty;
-	}, 250)
-	player.score =  player.score - 1;
+	}, 300)
 }
 
 
@@ -141,9 +140,18 @@ Player.prototype.reset = function() {
 	this.condition = "win";
 	setTimeout(function(){
 		player.y = 400;
-		player.condition = "normal"
-	}, 1000)
-	player.score = player.score + .5;
+	}, 500)
+}
+
+var doScore = function(type) {
+	if (type == "goal") {
+		player.score =  player.score + 50;
+	}
+
+	if (type == "ouch") {
+		player.score =  player.score - 15;
+	}
+	document.getElementById('Score').innerHTML='<div>'+player.score+'</div>';
 }
 
 // Now instantiate your objects.
