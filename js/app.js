@@ -58,7 +58,7 @@ Player.prototype.update = function() {
 		this.reset();
 	}
 
-	// adjust score
+	// adjust score for win and knockbacks
 	if (this.y == 400 && this.condition == "win") {
 		this.condition = "normal";
 		doScore("goal");
@@ -68,19 +68,19 @@ Player.prototype.update = function() {
 		doScore("ouch");
 	}
 
-	// check lane1 enemy
+	// check lane1 enemy with cushion of 20 pixels
 	if (this.y == 236) {
 		if (enemy1.x >= this.x - 20 && enemy1.x <= this.x + 20) {
 			this.tradgedy();
 		}
 	}
-	// check lane2 enemy
+	// check lane2 enemy with cushion of 20 pixels
 	if (this.y == 154) {
 		if (enemy2.x >= this.x - 20 && enemy2.x <= this.x + 20) {
 			this.tradgedy();
 		}
 	}
-	//check lane3 enemy
+	//check lane3 enemy with cushion of 20 pixels
 	if (this.y == 72) {
 		if (enemy3.x >= this.x - 20 && enemy3.x <= this.x + 20) {
 			this.tradgedy();
@@ -147,7 +147,6 @@ var doScore = function(type) {
 	if (type == "goal") {
 		player.score =  player.score + 50;
 	}
-
 	if (type == "ouch") {
 		player.score =  player.score - 15;
 	}
@@ -160,7 +159,7 @@ var doScore = function(type) {
 var player = new Player();
 
 // Create enemy with lane number
-allEnemies = [
+var allEnemies = [
 	enemy1 = new Enemy(1),
 	enemy2 = new Enemy(2),
 	enemy3 = new Enemy(3)

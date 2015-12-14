@@ -23,7 +23,6 @@ var Engine = (function(global) {
         win = global.window,
         canvas = doc.createElement('canvas'),
 		score = doc.createElement('div'),
-		scr = canvas.getContext('2d'),
         ctx = canvas.getContext('2d'),
         lastTime;
 
@@ -188,5 +187,4 @@ var Engine = (function(global) {
      * from within their app.js files.
      */
     global.ctx = ctx;
-	global.scr = scr;
 })(this);
