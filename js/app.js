@@ -50,7 +50,7 @@ var Player = function() {
 	this.y = 400;
 	this.sprite = "images/char-boy.png";
 	this.score = 0;
-}
+};
 
 Player.prototype.update = function() {
 	// Check for goal and reset player
@@ -86,7 +86,7 @@ Player.prototype.update = function() {
 			this.tradgedy();
 		}
 	}
-}
+};
 
 Player.prototype.handleInput = function(input) {
 	this.condition = "normal";
@@ -106,7 +106,7 @@ Player.prototype.handleInput = function(input) {
 	if (input == "right" && this.x < 402) {
 		this.x = this.x + 101;
 	}
-}
+};
 
 Player.prototype.render = function() {
 	// if player collides with enemy
@@ -123,7 +123,7 @@ Player.prototype.render = function() {
 	}
 
 	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 Player.prototype.tradgedy = function() {
 	// knock player down if there is collision
@@ -131,8 +131,8 @@ Player.prototype.tradgedy = function() {
 	player.y =  penalty;
 	this.condition = "ouch";
 	setTimeout(function(){
-	}, 300)
-}
+	}, 300);
+};
 
 
 // Player reaches top, reset to botom
@@ -140,8 +140,8 @@ Player.prototype.reset = function() {
 	this.condition = "win";
 	setTimeout(function(){
 		player.y = 400;
-	}, 500)
-}
+	}, 500);
+};
 
 var doScore = function(type) {
 	if (type == "goal") {
@@ -152,7 +152,7 @@ var doScore = function(type) {
 		player.score =  player.score - 15;
 	}
 	document.getElementById('Score').innerHTML='<div>'+player.score+'</div>';
-}
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -164,7 +164,7 @@ allEnemies = [
 	enemy1 = new Enemy(1),
 	enemy2 = new Enemy(2),
 	enemy3 = new Enemy(3)
-]
+];
 
 
 // This listens for key presses and sends the keys to your
