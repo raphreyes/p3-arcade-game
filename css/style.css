@@ -12,8 +12,8 @@ canvas,
 .score {
 	width: 505px;
 	max-width: 505px;
-	padding-top: 1em;
-	height: 100px;
+	padding-top: .5em;
+	height: 48px;
 	background-color: #000;
 	font-size: 48px;
 	font-weight: bold;

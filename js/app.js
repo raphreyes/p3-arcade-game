@@ -3,8 +3,8 @@ var Enemy = function(laneNumber) {
 	// Start enemies at left completely off the game field
 	// Start enemy up to 4 widths off-screen
 	this.x = (Math.random() * 404) * -1;
-
 	// Assign the enemy lane and speed
+	// Top lane enemies move faster
 	this.lane = laneNumber;
 	if(this.lane == 1) {
 		this.y = 228;
@@ -26,13 +26,11 @@ var Enemy = function(laneNumber) {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-	// Top lane enemies move faster
 	this.x = (this.x + this.speed);
-
 	// if the enemy moves off right edge,
 	// move them back to left side
 	if(this.x > 505) {
-		// Move the enemy random distance beyond left edge of board
+		// Move the enemy back to a random distance beyond left edge of board
 		this.x = (Math.random() * 404) * -1;
 	}
 };
@@ -64,32 +62,40 @@ Player.prototype.update = function() {
 		doScore("goal");
 	}
 	if (this.condition == "ouch") {
-		this.condition = "normal";
-		doScore("ouch");
+		this.condition = "pain";
 	}
 
-	// check lane1 enemy with cushion of 20 pixels
+	// check lane1 enemy with cushion of 60 pixels in front and 40 in back
 	if (this.y == 236) {
-		if (enemy1.x >= this.x - 20 && enemy1.x <= this.x + 20) {
+		if (enemy1.x >= this.x - 40 && enemy1.x <= this.x + 60) {
 			this.tradgedy();
 		}
 	}
-	// check lane2 enemy with cushion of 20 pixels
+	// check lane2 enemy with cushion of 60 pixels in front and 40 in back
 	if (this.y == 154) {
-		if (enemy2.x >= this.x - 20 && enemy2.x <= this.x + 20) {
+		if (enemy2.x >= this.x - 40 && enemy2.x <= this.x + 60) {
 			this.tradgedy();
 		}
 	}
-	//check lane3 enemy with cushion of 20 pixels
+	// check lane3 enemy with cushion of 60 pixels in front and 40 in back
 	if (this.y == 72) {
-		if (enemy3.x >= this.x - 20 && enemy3.x <= this.x + 20) {
+		if (enemy3.x >= this.x - 40 && enemy3.x <= this.x + 60) {
 			this.tradgedy();
 		}
 	}
 };
 
 Player.prototype.handleInput = function(input) {
+	// if player is in pain, the next move they will stand up
+	// in same square and return to normal color
+	if (input !== null && this.condition == "pain" ) {
+		this.condition = "normal";
+		return;
+	}
+
+	// Set player's condition to normal
 	this.condition = "normal";
+
 	// move player up unless they are at the top
 	if (input == "up" && this.y > -10) {
 		this.y = this.y - 82;
@@ -111,17 +117,19 @@ Player.prototype.handleInput = function(input) {
 Player.prototype.render = function() {
 	// if player collides with enemy
 	if (this.condition == "ouch") {
+			this.sprite = "images/char-boy-l45.png";
+	}
+	if (this.condition == "pain") {
 			this.sprite = "images/char-boy-r45.png";
 	}
 
+	// Player turns gold on win
 	if (this.condition == "win") {
 			this.sprite = "images/char-boy-gold.png";
 	}
-
 	if (this.condition == "normal") {
 		this.sprite = "images/char-boy.png";
 	}
-
 	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
@@ -130,8 +138,7 @@ Player.prototype.tradgedy = function() {
 	var penalty =  player.y + 82;
 	player.y =  penalty;
 	this.condition = "ouch";
-	setTimeout(function(){
-	}, 300);
+	doScore("ouch");
 };
 
 
@@ -140,17 +147,25 @@ Player.prototype.reset = function() {
 	this.condition = "win";
 	setTimeout(function(){
 		player.y = 400;
-	}, 500);
+	}, 600);
 };
 
 var doScore = function(type) {
 	if (type == "goal") {
 		player.score =  player.score + 50;
+		// level = level++;
+		// nextEnemy = "enemy" + level;
+		// nextLane = Math.floor(Math.random()*3)+1;
+		// allEnemies.push(nextEnemy = new Enemy(nextLane));
 	}
 	if (type == "ouch") {
 		player.score =  player.score - 15;
+		this.condition = "pain";
 	}
-	document.getElementById('Score').innerHTML='<div>'+player.score+'</div>';
+	if (type == "pain") {
+		return;
+	}
+	document.getElementById('Score').innerHTML='<div>SCORE:'+player.score+'</div>';
 };
 
 // Now instantiate your objects.
