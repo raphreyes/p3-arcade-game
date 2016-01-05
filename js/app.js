@@ -62,6 +62,7 @@ Player.prototype.update = function() {
 		this.condition = "normal";
 		doScore("goal");
 	}
+	// set player graphic to fallen if state is collision
 	if (this.condition == "ouch") {
 		this.condition = "pain";
 	}
@@ -97,6 +98,15 @@ Player.prototype.handleInput = function(input) {
 	// Set player's condition to normal
 	this.condition = "normal";
 
+	// prevent moving x in goal lane and lock the win column value
+	if (input == "right" && this.y == -10) {
+		this.wincol = this.x;
+		return;
+	}
+	if (input == "left" && this.y == -10) {
+		this.wincol = this.x;
+		return;
+	}
 	// move player up unless they are at the top
 	if (input == "up" && this.y > -10) {
 		this.y = this.y - 82;
@@ -113,6 +123,7 @@ Player.prototype.handleInput = function(input) {
 	if (input == "right" && this.x < 402) {
 		this.x = this.x + 101;
 	}
+	// console.log(this.x, this.y);
 };
 
 Player.prototype.render = function() {
@@ -153,11 +164,16 @@ Player.prototype.reset = function() {
 
 var doScore = function(type) {
 	if (type == "goal") {
+		// add the base score
 		player.score =  player.score + 50;
-		// level = level++;
-		// nextEnemy = "enemy" + level;
-		// nextLane = Math.floor(Math.random()*3)+1;
-		// allEnemies.push(nextEnemy = new Enemy(nextLane));
+		// add bonus depending on the win column
+		// left edge scores highest, right edge scores lower
+		if (player.wincol == -2) { player.score = player.score + 15 };
+		if (player.wincol == 99) { player.score = player.score + 5 };
+		if (player.wincol == 301) { player.score = player.score -15 };
+		if (player.wincol == 402) { player.score = player.score -40 };
+
+		// console.log(player.x, player.wincol);
 	}
 	if (type == "ouch") {
 		player.score =  player.score - 15;
