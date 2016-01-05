@@ -6,7 +6,8 @@ frontend-nanodegree-arcade-game
 1. Download this game by cloning this repository to your PC. Alternatively, you can download the zip file by using the "Download Zip" button on this page: https://github.com/raphreyes/p3-arcade-game
 2. If you cloned this repository, go to the directory where it was cloned and double click the index.html file to launch the game in your browser.
 3. If you downloaded the zip file, extract it to a desired location and navigate to the root folder and open the index.html file with a browser.
-4. The game should start running, showing a playfield with the player at the bottom, and 3 enemies moving across the screen. Javascript must be enabled to run the game.
+4. The game should start running, showing a playfield with the player at the bottom, and 3 enemies moving across the screen. 
+5. ***Your browser must have Javascript enabled to run the game.***
 
 **Moving the Player:**
 
