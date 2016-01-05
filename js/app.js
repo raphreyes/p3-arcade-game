@@ -27,7 +27,7 @@ var Enemy = function(laneNumber) {
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
 	this.x = ((this.x + (this.speed*(dt*100))));
-	console.log(this.speed*(dt*100));
+	// console.log(this.speed*(dt*100));
 	// if the enemy moves off right edge,
 	// move them back to left side
 	if(this.x > 505) {
