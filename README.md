@@ -22,7 +22,9 @@ Your next move will stand you up. Be sure to stand up quickly when you are in th
 The farther left you are when you reach the goal, the more you will score. The farther right will score less. 
 
 ***Reaching Goal: +50 points***
+
 ***Bonus points for scoring on either left 2 columns.***
+
 ***Collision with Enemy: -15 points, plus knock back 1 tile.***
 
 
