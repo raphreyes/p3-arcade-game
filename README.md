@@ -13,6 +13,7 @@ frontend-nanodegree-arcade-game
 Move your character with the arrow keys (Left, Right, Up and Down.)
 Each key tap moves your character one tile in the desired direction.
 You are not allowed to move off the game board.
+***If you get hit by enemy, you must stand up*** Your next keypress will stand you up.
 
 **Scoring:**
 
