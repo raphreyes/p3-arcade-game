@@ -110,18 +110,22 @@ Player.prototype.handleInput = function(input) {
 	// move player up unless they are at the top
 	if (input == "up" && this.y > -10) {
 		this.y = this.y - 82;
+		this.wincol = this.x;
 	}
 	// move player down unless they are at the bottom
 	if (input == "down" && this.y < 400) {
 		this.y = this.y + 82;
+		this.wincol = this.x;
 	}
 	// move player left unless they are at the left edge
 	if (input == "left" && this.x > -2) {
 		this.x = this.x - 101;
+		this.wincol = this.x;
 	}
 	// move player right unless they are at the right edge
 	if (input == "right" && this.x < 402) {
 		this.x = this.x + 101;
+		this.wincol = this.x;
 	}
 	// console.log(this.x, this.y);
 };
@@ -166,7 +170,7 @@ var doScore = function(type) {
 	if (type == "goal") {
 		// add the base score
 		player.score =  player.score + 50;
-		// add bonus depending on the win column
+		// adjust score depending on the win column
 		// left edge scores highest, right edge scores lower
 		if (player.wincol == -2) { player.score = player.score + 15 };
 		if (player.wincol == 99) { player.score = player.score + 5 };
