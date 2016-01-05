@@ -1,10 +1,10 @@
 // Enemies our player must avoid
 var Enemy = function(laneNumber) {
 	// Start enemies at left completely off the game field
-	// Start enemy up to 4 widths off-screen
+	// Start enemy on random x value up to 4 enemy widths off-screen
 	this.x = (Math.random() * 404) * -1;
 	// Assign the enemy lane and speed
-	// Top lane enemies move faster
+	// Top lane (#3) enemies move faster
 	this.lane = laneNumber;
 	if(this.lane == 1) {
 		this.y = 228;
@@ -18,15 +18,16 @@ var Enemy = function(laneNumber) {
 			this.speed = 3;
 		}
 	}
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
+	// The image/sprite for our enemies, this uses
+	// a helper we've provided to easily load images
+	this.sprite = 'images/enemy-bug.png';
 };
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-	this.x = (this.x + this.speed);
+	this.x = ((this.x + (this.speed*(dt*100))));
+	console.log(this.speed*(dt*100));
 	// if the enemy moves off right edge,
 	// move them back to left side
 	if(this.x > 505) {
@@ -37,7 +38,7 @@ Enemy.prototype.update = function(dt) {
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 // Now write your own player class
@@ -87,7 +88,7 @@ Player.prototype.update = function() {
 
 Player.prototype.handleInput = function(input) {
 	// if player is in pain, the next move they will stand up
-	// in same square and return to normal color
+	// within same square and return to normal color
 	if (input !== null && this.condition == "pain" ) {
 		this.condition = "normal";
 		return;
@@ -184,12 +185,12 @@ var allEnemies = [
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
-    var allowedKeys = {
-        37: 'left',
-        38: 'up',
-        39: 'right',
-        40: 'down'
-    };
+	var allowedKeys = {
+		37: 'left',
+		38: 'up',
+		39: 'right',
+		40: 'down'
+	};
 
-    player.handleInput(allowedKeys[e.keyCode]);
+	player.handleInput(allowedKeys[e.keyCode]);
 });
