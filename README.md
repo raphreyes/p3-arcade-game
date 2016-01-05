@@ -7,7 +7,7 @@ frontend-nanodegree-arcade-game
 2. If you cloned this repository, go to the directory where it was cloned and double click the index.html file to launch the game.
 3. If you downloaded the zip file, extract it to a desired location and navigate to the root folder and open the index.html file with a browser.
 4. The game should start running, showing a playfield with the player at the bottom, and 3 enemies moving across the screen.
-===============================
+
 **Moving the Player:**
 
 Move your character with the arrow keys (Left, Right, Up and Down.)
@@ -15,7 +15,7 @@ Each key tap moves your character one tile in the desired direction.
 You are not allowed to move off the game board.
 
 ***If you get hit by enemy, you must stand up*** Your next keypress will stand you up.
-===============================
+
 **Scoring:**
 
 The object is to move your player into the water at the top row of the game board.
