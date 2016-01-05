@@ -19,9 +19,10 @@ You are not allowed to move off the game board.
 The object is to move your player into the water at the top row of the game board.
 If you collide with an enemy, your player will be knocked back 1 tile and you will loose points.
 Your next move will stand you up. Be sure to stand up quickly when you are in the enemy lanes!
+The farther left you are when you reach the goal, the more you will score. The farther right will score less. 
 
 ***Reaching Goal: +50 points***
-
+***Bonus points for scoring on either left 2 columns.***
 ***Collision with Enemy: -15 points, plus knock back 1 tile.***
 
 
