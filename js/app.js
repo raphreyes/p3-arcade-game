@@ -172,10 +172,18 @@ var doScore = function(type) {
 		player.score =  player.score + 50;
 		// adjust score depending on the win column
 		// left edge scores highest, right edge scores lower
-		if (player.wincol == -2) { player.score = player.score + 15 };
-		if (player.wincol == 99) { player.score = player.score + 5 };
-		if (player.wincol == 301) { player.score = player.score -15 };
-		if (player.wincol == 402) { player.score = player.score -40 };
+		if (player.wincol == -2) {
+			player.score = player.score + 15;
+		}
+		if (player.wincol == 99) {
+			player.score = player.score + 5;
+		}
+		if (player.wincol == 301) {
+			player.score = player.score -15;
+		}
+		if (player.wincol == 402) {
+			player.score = player.score -40;
+		}
 
 		// console.log(player.x, player.wincol);
 	}
