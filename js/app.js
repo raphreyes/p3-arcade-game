@@ -26,11 +26,12 @@ var Enemy = function(laneNumber) {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
+	var rightEdgeScreen = 505;
 	this.x = ((this.x + (this.speed*(dt*100))));
 	// console.log(this.speed*(dt*100));
 	// if the enemy moves off right edge,
 	// move them back to left side
-	if(this.x > 505) {
+	if(this.x > rightEdgeScreen) {
 		// Move the enemy back to a random distance beyond left edge of board
 		this.x = (Math.random() * 404) * -1;
 	}
@@ -47,7 +48,7 @@ Enemy.prototype.render = function() {
 var Player = function() {
 	this.x = 200;
 	this.y = 400;
-	this.sprite = "images/char-boy.png";
+	this.sprite = 'images/char-boy.png';
 	this.score = 0;
 };
 
@@ -58,13 +59,13 @@ Player.prototype.update = function() {
 	}
 
 	// adjust score for win and knockbacks
-	if (this.y == 400 && this.condition == "win") {
-		this.condition = "normal";
-		doScore("goal");
+	if (this.y == 400 && this.condition == 'win') {
+		this.condition = 'normal';
+		doScore('goal');
 	}
 	// set player graphic to fallen if state is collision
-	if (this.condition == "ouch") {
-		this.condition = "pain";
+	if (this.condition == 'ouch') {
+		this.condition = 'pain';
 	}
 
 	// check lane1 enemy with cushion of 60 pixels in front and 40 in back
@@ -90,40 +91,40 @@ Player.prototype.update = function() {
 Player.prototype.handleInput = function(input) {
 	// if player is in pain, the next move they will stand up
 	// within same square and return to normal color
-	if (input !== null && this.condition == "pain" ) {
-		this.condition = "normal";
+	if (input !== null && this.condition == 'pain' ) {
+		this.condition = 'normal';
 		return;
 	}
 
 	// Set player's condition to normal
-	this.condition = "normal";
+	this.condition = 'normal';
 
 	// prevent moving x in goal lane and lock the win column value
-	if (input == "right" && this.y == -10) {
+	if (input == 'right' && this.y == -10) {
 		this.wincol = this.x;
 		return;
 	}
-	if (input == "left" && this.y == -10) {
+	if (input == 'left' && this.y == -10) {
 		this.wincol = this.x;
 		return;
 	}
 	// move player up unless they are at the top
-	if (input == "up" && this.y > -10) {
+	if (input == 'up' && this.y > -10) {
 		this.y = this.y - 82;
 		this.wincol = this.x;
 	}
 	// move player down unless they are at the bottom
-	if (input == "down" && this.y < 400) {
+	if (input == 'down' && this.y < 400) {
 		this.y = this.y + 82;
 		this.wincol = this.x;
 	}
 	// move player left unless they are at the left edge
-	if (input == "left" && this.x > -2) {
+	if (input == 'left' && this.x > -2) {
 		this.x = this.x - 101;
 		this.wincol = this.x;
 	}
 	// move player right unless they are at the right edge
-	if (input == "right" && this.x < 402) {
+	if (input == 'right' && this.x < 402) {
 		this.x = this.x + 101;
 		this.wincol = this.x;
 	}
@@ -132,19 +133,19 @@ Player.prototype.handleInput = function(input) {
 
 Player.prototype.render = function() {
 	// if player collides with enemy
-	if (this.condition == "ouch") {
-			this.sprite = "images/char-boy-l45.png";
+	if (this.condition == 'ouch') {
+			this.sprite = 'images/char-boy-l45.png';
 	}
-	if (this.condition == "pain") {
-			this.sprite = "images/char-boy-r45.png";
+	if (this.condition == 'pain') {
+			this.sprite = 'images/char-boy-r45.png';
 	}
 
 	// Player turns gold on win
-	if (this.condition == "win") {
-			this.sprite = "images/char-boy-gold.png";
+	if (this.condition == 'win') {
+			this.sprite = 'images/char-boy-gold.png';
 	}
-	if (this.condition == "normal") {
-		this.sprite = "images/char-boy.png";
+	if (this.condition == 'normal') {
+		this.sprite = 'images/char-boy.png';
 	}
 	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
@@ -153,21 +154,21 @@ Player.prototype.tradgedy = function() {
 	// knock player down if there is collision
 	var penalty =  player.y + 82;
 	player.y =  penalty;
-	this.condition = "ouch";
-	doScore("ouch");
+	this.condition = 'ouch';
+	doScore('ouch');
 };
 
 
 // Player reaches top, reset to botom
 Player.prototype.reset = function() {
-	this.condition = "win";
+	this.condition = 'win';
 	setTimeout(function(){
 		player.y = 400;
 	}, 600);
 };
 
 var doScore = function(type) {
-	if (type == "goal") {
+	if (type == 'goal') {
 		// add the base score
 		player.score =  player.score + 50;
 		// adjust score depending on the win column
@@ -187,11 +188,11 @@ var doScore = function(type) {
 
 		// console.log(player.x, player.wincol);
 	}
-	if (type == "ouch") {
+	if (type == 'ouch') {
 		player.score =  player.score - 15;
-		this.condition = "pain";
+		this.condition = 'pain';
 	}
-	if (type == "pain") {
+	if (type == 'pain') {
 		return;
 	}
 	document.getElementById('Score').innerHTML='<div>SCORE:'+player.score+'</div>';
