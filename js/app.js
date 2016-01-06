@@ -167,12 +167,6 @@ Player.prototype.reset = function() {
 	}.bind(this), 1000);
 };
 
-var resetPlayer = function() {
-	setTimeout(function() {
-		player.y = 400;
-	}, 1000);
-}
-
 var doScore = function(type) {
 	if (type == 'goal') {
 		// add the base score
