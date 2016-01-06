@@ -70,19 +70,19 @@ Player.prototype.update = function() {
 
 	// check lane1 enemy with cushion of 60 pixels in front and 40 in back
 	if (this.y == 236) {
-		if (enemy1.x >= this.x - 40 && enemy1.x <= this.x + 60) {
+		if (allEnemies[0].x >= this.x - 40 && allEnemies[0].x <= this.x + 60) {
 			this.tradgedy();
 		}
 	}
 	// check lane2 enemy with cushion of 60 pixels in front and 40 in back
 	if (this.y == 154) {
-		if (enemy2.x >= this.x - 40 && enemy2.x <= this.x + 60) {
+		if (allEnemies[1].x >= this.x - 40 && allEnemies[1].x <= this.x + 60) {
 			this.tradgedy();
 		}
 	}
 	// check lane3 enemy with cushion of 60 pixels in front and 40 in back
 	if (this.y == 72) {
-		if (enemy3.x >= this.x - 40 && enemy3.x <= this.x + 60) {
+		if (allEnemies[2].x >= this.x - 40 && allEnemies[2].x <= this.x + 60) {
 			this.tradgedy();
 		}
 	}
@@ -152,20 +152,26 @@ Player.prototype.render = function() {
 
 Player.prototype.tradgedy = function() {
 	// knock player down if there is collision
-	var penalty =  player.y + 82;
-	player.y =  penalty;
+	var penalty =  this.y + 82;
+	this.y =  penalty;
 	this.condition = 'ouch';
 	doScore('ouch');
 };
 
 
-// Player reaches top, reset to botom
+// Player reaches top, pause, then reset to botom
 Player.prototype.reset = function() {
 	this.condition = 'win';
-	setTimeout(function(){
-		player.y = 400;
-	}, 600);
+	setTimeout(function() {
+		this.y = 400;
+	}.bind(this), 1000);
 };
+
+var resetPlayer = function() {
+	setTimeout(function() {
+		player.y = 400;
+	}, 1000);
+}
 
 var doScore = function(type) {
 	if (type == 'goal') {
@@ -203,12 +209,11 @@ var doScore = function(type) {
 // Place the player object in a variable called player
 var player = new Player();
 
-// Create enemy with lane number
-var allEnemies = [
-	enemy1 = new Enemy(1),
-	enemy2 = new Enemy(2),
-	enemy3 = new Enemy(3)
-];
+// Create enemy with lane number 1-3
+var allEnemies = Array();
+for (var i = 1, enemies = 3; i <= enemies; i++) {
+	allEnemies.push(new Enemy(i));
+}
 
 
 // This listens for key presses and sends the keys to your
